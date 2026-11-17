@@ -1,0 +1,9 @@
+{
+  "name": "Meu Espaço — Organização",
+  "short_name": "Meu Espaço",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f8f5f7",
+  "theme_color": "#f7f1f5",
+  "description": "Organização profissional e pessoal com gentileza."
+}

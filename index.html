@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7f1f5">
+<meta name="description" content="Seu espaço de organização profissional e pessoal.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Meu Espaço</title>
+<style>
+:root{--bg:#f8f5f7;--paper:#fff;--ink:#302b32;--muted:#817984;--line:#eee7ed;--pink:#f7e8ef;--lav:#eee9fa;--blue:#e9f0ff;--green:#e7f3eb;--peach:#fff0e2;--accent:#9a6682;--shadow:0 8px 28px #5c3d5010}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:90px}
+header{padding:22px 18px 14px;max-width:760px;margin:auto;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:15px;background:linear-gradient(145deg,#f4dce8,#e8e2f7);display:grid;place-items:center;font-size:22px}
+h1{font-size:21px;margin:0;letter-spacing:-.5px} .sub{font-size:11px;color:var(--muted);letter-spacing:1.2px}
+main{max-width:760px;margin:auto;padding:0 14px 25px}.screen{display:none}.screen.active{display:block}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:16px;margin:12px 0;box-shadow:var(--shadow)}
+h2{font-size:18px;margin:0 0 12px;letter-spacing:-.3px}h3{font-size:14px;margin:0 0 8px}
+.muted{color:var(--muted);font-size:12px}.quote{background:linear-gradient(135deg,#f8eaf0,#f0ebfa);border:0;padding:20px}.quote .q{font-size:20px;line-height:1.35;font-weight:650;margin:9px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:#faf8fa;border-radius:14px;padding:12px}.stat b{font-size:23px;display:block}.stat span{font-size:11px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tile{border-radius:17px;padding:15px;min-height:112px;text-align:left;border:0;color:var(--ink);cursor:pointer}.tile b{display:block;margin:7px 0 3px}.tile small{color:#756b77;font-size:11px}.tile .emoji{font-size:22px}.pink{background:var(--pink)}.lav{background:var(--lav)}.blue{background:var(--blue)}.green{background:var(--green)}.peach{background:var(--peach)}
+nav{position:fixed;bottom:0;left:0;right:0;background:#ffffffed;backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:center;padding:8px max(5px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom));z-index:5}
+nav button{background:none;border:0;color:#89818b;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;max-width:115px;padding:4px 0;cursor:pointer}nav button span{font-size:20px}nav button.active{color:#945d7b;font-weight:700}
+button,.btn{cursor:pointer} .primary{background:#986783;color:white;border:0;border-radius:13px;padding:12px 15px;font-weight:650;width:100%}.secondary{background:#f4edf2;color:#79566d;border:0;border-radius:12px;padding:10px 13px}
+input,select,textarea{font:inherit;width:100%;border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff;color:var(--ink);margin:5px 0 10px;min-width:0}textarea{min-height:80px;resize:vertical}label{font-size:12px;color:var(--muted);display:block;margin-top:4px}
+.row{display:flex;align-items:center;gap:8px}.row>*{flex:1}.row .fit{flex:0 0 auto}
+.task{padding:12px 0;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:10px}.task:last-child{border:0}.task input{width:18px;margin:3px 0 0}.task-title{flex:1}.task-title.done{text-decoration:line-through;color:#aaa}.pill{font-size:10px;border-radius:20px;padding:4px 8px;background:#f2edf1;color:#786b77;white-space:nowrap}.high{background:#fae5e8;color:#a14c61}.med{background:#fff0dc;color:#9a6a2d}
+.daybar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.day{border:1px solid var(--line);border-radius:12px;padding:9px 2px;background:white;font-size:11px;color:var(--muted)}.day.selected{background:#eee8f7;border-color:#c9b8dc;color:#654c7b;font-weight:700}
+.empty{text-align:center;color:var(--muted);padding:20px 8px;font-size:13px}.section-head{display:flex;justify-content:space-between;align-items:center;margin:18px 2px 6px}
+small.help{display:block;color:var(--muted);font-size:11px;margin:-5px 0 10px}
+hr{border:0;border-top:1px solid var(--line);margin:15px 0}
+.item{background:#faf8fa;border-radius:13px;padding:11px;margin:8px 0}.item .row{align-items:center}.delete{border:0;background:none;color:#a18e9c;font-size:18px}
+@media(min-width:650px){main{padding:0 22px 35px}.card{padding:20px}header{padding-left:22px;padding-right:22px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">✿</div><div><h1>Meu Espaço</h1><div class="sub">ORGANIZAÇÃO COM GENTILEZA</div></div></div><div class="muted" id="today"></div></header>
+<main>
+<section class="screen active" id="home">
+ <div class="card quote"><div class="muted">✦ UM LEMBRETE PARA HOJE</div><div class="q" id="quote"></div><div class="muted">Um passo de cada vez. ♡</div></div>
+ <div class="card"><div class="section-head"><h2>Seu panorama</h2><span class="muted">visão geral</span></div><div class="stats"><div class="stat"><b id="taskCount">0</b><span>tarefas abertas</span></div><div class="stat"><b id="msgCount">0</b><span>respostas</span></div><div class="stat"><b id="reportCount">0</b><span>relatórios</span></div></div></div>
+ <div class="section-head"><h2>Por onde começar?</h2><span class="muted">seus espaços</span></div>
+ <div class="grid2">
+  <button class="tile blue" data-go="agenda"><span class="emoji">🗓️</span><b>Agenda semanal</b><small>Organize seus dias</small></button>
+  <button class="tile green" data-go="private"><span class="emoji">♡</span><b>Clínica particular</b><small>Pacientes e financeiro</small></button>
+  <button class="tile peach" data-go="conv"><span class="emoji">🧩</span><b>Clínica de convênio</b><small>Atendimentos e repasses</small></button>
+  <button class="tile lav" data-go="content"><span class="emoji">✎</span><b>Criação de conteúdo</b><small>Ideias até publicação</small></button>
+  <button class="tile pink" data-go="admin"><span class="emoji">📂</span><b>Burocracias</b><small>Documentos e contas</small></button>
+  <button class="tile" style="background:#edf2ef" data-go="personal"><span class="emoji">☁️</span><b>Vida pessoal</b><small>Estudos e autocuidado</small></button>
+ </div>
+ <div class="card"><h2>Despejo mental rápido</h2><p class="muted">Anote agora. Você organiza depois.</p><input id="quickText" placeholder="O que não posso esquecer?"><button class="primary" onclick="quickAdd()">Guardar na caixa de entrada</button></div>
+ <div class="card"><h2>Pequenas prioridades</h2><p class="muted">Escolha até três coisas importantes para hoje.</p><div id="topTasks" class="muted">Suas tarefas prioritárias aparecerão aqui.</div></div>
+</section>
+<section class="screen" id="agenda">
+ <div class="section-head"><h2>Minha semana</h2><span class="muted">agenda de tarefas</span></div>
+ <div class="daybar" id="daybar"></div>
+ <div class="card"><h3 id="dayTitle">Segunda-feira</h3><div id="dayTasks"></div></div>
+ <div class="card"><h2>Adicionar tarefa</h2><input id="taskName" placeholder="Ex.: finalizar evolução...">
+ <div class="row"><div><label>Área</label><select id="taskArea"><option>Clínica de convênio</option><option>Clínica particular</option><option>Criação de conteúdo</option><option>Burocracias</option><option>Desenvolvimento</option><option>Vida pessoal</option></select></div><div><label>Prioridade</label><select id="taskPriority"><option>Média</option><option>Alta</option><option>Baixa</option></select></div></div>
+ <div class="row"><div><label>Dia</label><select id="taskDay"><option>Segunda</option><option>Terça</option><option>Quarta</option><option>Quinta</option><option>Sexta</option><option>Sábado</option><option>Domingo</option><option>Caixa de entrada</option></select></div><div><label>Prazo</label><input id="taskDeadline" type="date"></div></div>
+ <label>Categoria</label><select id="taskType"><option>Tarefa geral</option><option>Atendimento</option><option>Evolução/prontuário</option><option>Relatório</option><option>Mensagem/retorno</option><option>Financeiro</option><option>Planejamento</option><option>Estudo</option></select>
+ <button class="primary" onclick="addTask()">＋ Adicionar à agenda</button></div>
+ <div class="card"><h2>Caixa de entrada</h2><div id="inbox"></div></div>
+</section>
+<section class="screen" id="conv">
+ <div class="section-head"><h2>Clínica de convênio</h2><span class="pill">área independente</span></div>
+ <div class="card"><h3>Rotina do convênio</h3><p class="muted">Acompanhamento administrativo e operacional, separado da clínica particular.</p><div id="convTasks"></div><button class="secondary" onclick="prefill('Clínica de convênio')">＋ Nova tarefa do convênio</button></div>
+ <div class="grid2"><div class="card"><h3>📋 Evoluções</h3><p class="muted">Pendências de registros e prontuários.</p><div id="convEvol"></div></div><div class="card"><h3>📄 Relatórios</h3><p class="muted">Fila de documentos a elaborar.</p><div id="convReports"></div></div></div>
+ <div class="card"><h3>💰 Repasses e pagamentos</h3><input id="convMoneyDesc" placeholder="Descrição do repasse"><div class="row"><input id="convMoney" type="number" min="0" step=".01" placeholder="Valor R$"><input id="convMoneyDate" type="date"></div><button class="primary" onclick="addMoney('conv')">Registrar valor previsto/recebido</button><div id="convMoneyList"></div></div>
+</section>
+<section class="screen" id="private">
+ <div class="section-head"><h2>Clínica particular</h2><span class="pill">área independente</span></div>
+ <div class="card"><h3>Rotina da clínica particular</h3><p class="muted">Agenda, organização e crescimento da sua prática.</p><div id="privateTasks"></div><button class="secondary" onclick="prefill('Clínica particular')">＋ Nova tarefa particular</button></div>
+ <div class="card"><h3>💳 Controle financeiro particular</h3><div class="row"><div><label>Descrição</label><input id="privateMoneyDesc" placeholder="Ex.: sessão / pacote"></div><div><label>Valor (R$)</label><input id="privateMoney" type="number" min="0" step=".01" placeholder="0,00"></div></div><div class="row"><div><label>Data</label><input id="privateMoneyDate" type="date"></div><div><label>Status</label><select id="privateMoneyStatus"><option>Recebido</option><option>Pendente</option></select></div></div><button class="primary" onclick="addMoney('private')">Registrar lançamento</button><div id="privateMoneyList"></div></div>
+ <div class="card"><h3>🌱 Captação e planejamento</h3><p class="muted">Acompanhe ações de divulgação, contatos e planejamento de sessões sem registrar informações clínicas identificáveis.</p><div id="privateOther"></div></div>
+</section>
+<section class="screen" id="content">
+ <div class="section-head"><h2>Estúdio de conteúdo</h2><span class="pill">ideias sem pressão</span></div>
+ <div class="card"><h3>Capturar uma ideia</h3><input id="ideaText" placeholder="Ex.: autocrítica e gentileza consigo..."><div class="row"><select id="ideaStage"><option>Ideia</option><option>Roteiro</option><option>Gravar</option><option>Editar</option><option>Publicado</option></select><button class="primary" onclick="addIdea()">Salvar ideia</button></div></div>
+ <div class="card"><h3>Meu fluxo de conteúdo</h3><div id="ideaList"></div></div>
+</section>
+<section class="screen" id="admin">
+ <div class="section-head"><h2>Burocracias & financeiro</h2><span class="pill">vida prática</span></div>
+ <div class="card"><h3>Contas, impostos e documentação</h3><input id="adminText" placeholder="Ex.: emitir nota fiscal, pagar internet..."><div class="row"><select id="adminCategory"><option>Contas pessoais</option><option>Contas profissionais</option><option>Impostos e notas fiscais</option><option>CRP e documentação</option><option>Controle de recebimentos</option></select><input id="adminDate" type="date"></div><button class="primary" onclick="addAdmin()">＋ Adicionar pendência</button><div id="adminList"></div></div>
+ <div class="card"><h3>Resumo de lançamentos</h3><div id="financeSummary" class="stats"></div><p class="muted">Os controles de convênio e particular permanecem separados.</p></div>
+</section>
+<section class="screen" id="personal">
+ <div class="section-head"><h2>Meu lado de fora do trabalho</h2><span class="pill">você também importa</span></div>
+ <div class="card"><h3>Estudos e desenvolvimento</h3><p class="muted">Pós-graduação, leituras, cursos e projetos futuros.</p><input id="personalText" placeholder="O que quero cuidar ou desenvolver?"><button class="primary" onclick="addPersonal()">Adicionar lembrete</button><div id="personalList"></div></div>
+ <div class="card"><h3>Meu espaço mental</h3><p class="muted">Escreva sem organizar. Tire da cabeça e coloque aqui.</p><textarea id="brainDump" placeholder="Tudo bem se estiver bagunçado..."></textarea><button class="secondary" onclick="saveDump()">Salvar anotações</button><span class="muted" id="dumpSaved"></span></div>
+ <div class="card"><h3>Uma combinação comigo</h3><p>♡ Não preciso resolver tudo no dia em que lembro de tudo. Primeiro registro, depois organizo e, por fim, executo uma coisa de cada vez.</p></div>
+</section>
+</main>
+<nav>
+ <button class="active" data-nav="home"><span>⌂</span>Início</button><button data-nav="agenda"><span>▦</span>Agenda</button><button data-nav="conv"><span>🧩</span>Convênio</button><button data-nav="private"><span>♡</span>Particular</button><button data-nav="content"><span>✎</span>Conteúdo</button><button data-nav="admin"><span>▤</span>Mais</button>
+</nav>
+<script>
+const KEY='meu-espaco-v1';
+let data=JSON.parse(localStorage.getItem(KEY)||'{"tasks":[],"messages":[],"reports":[],"ideas":[],"money":[],"admin":[],"personal":[],"dump":""}');
+const days=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+const quotes=[
+'Você não precisa dar conta de tudo. Precisa apenas descobrir qual é o próximo passo possível.',
+'Feito é melhor que perfeito. Você pode aprimorar no caminho.',
+'Descansar também faz parte dos seus planos.',
+'Não transforme uma lista de tarefas em uma medida do seu valor.',
+'Você está construindo uma carreira. Não precisa ter tudo pronto agora.',
+'Pequenos passos também são progresso.',
+'Você merece a mesma gentileza que oferece aos outros.',
+'Seu ritmo não precisa ser igual ao de ninguém.',
+'Nem tudo que é urgente é importante.',
+'Hoje, fazer o possível já é suficiente.'
+];
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function id(){return Date.now()+Math.random()}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.nav===id));window.scrollTo(0,0);render()}
+document.querySelectorAll('[data-nav]').forEach(b=>b.onclick=()=>go(b.dataset.nav));
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+const now=new Date();document.getElementById('today').textContent=now.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
+document.getElementById('quote').textContent=quotes[Math.floor((new Date(now.getFullYear(),0,0).getTime()===0?0:(now-new Date(now.getFullYear(),0,0))/86400000))%quotes.length];
+let selectedDay=days[(now.getDay()+6)%7];
+function taskHTML(t){return `<div class="task"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask('${t.id}')"><div class="task-title ${t.done?'done':''}"><b>${esc(t.name)}</b><div class="muted">${esc(t.area)} · ${esc(t.type||'Tarefa geral')}${t.deadline?' · '+esc(t.deadline):''}</div></div><span class="pill ${t.priority==='Alta'?'high':t.priority==='Média'?'med':''}">${esc(t.priority||'Média')}</span><button class="delete" onclick="delTask('${t.id}')">×</button></div>`}
+function toggleTask(i){let t=data.tasks.find(x=>String(x.id)===i);if(t)t.done=!t.done;save()}
+function delTask(i){data.tasks=data.tasks.filter(x=>String(x.id)!==i);save()}
+function addTask(){let name=document.getElementById('taskName').value.trim();if(!name)return;data.tasks.push({id:id(),name,area:taskArea.value,priority:taskPriority.value,day:taskDay.value,deadline:taskDeadline.value,type:taskType.value,done:false});taskName.value='';taskDeadline.value='';save()}
+function quickAdd(){let n=quickText.value.trim();if(!n)return;data.tasks.push({id:id(),name:n,area:'Vida pessoal',priority:'Média',day:'Caixa de entrada',type:'Tarefa geral',done:false});quickText.value='';save()}
+function prefill(area){go('agenda');taskArea.value=area;taskDay.value='Caixa de entrada';taskName.focus()}
+function addIdea(){let n=ideaText.value.trim();if(!n)return;data.ideas.push({id:id(),name:n,stage:ideaStage.value});ideaText.value='';save()}
+function addAdmin(){let n=adminText.value.trim();if(!n)return;data.admin.push({id:id(),name:n,category:adminCategory.value,date:adminDate.value,done:false});adminText.value='';save()}
+function addPersonal(){let n=personalText.value.trim();if(!n)return;data.personal.push({id:id(),name:n,done:false});personalText.value='';save()}
+function addMoney(kind){let desc=document.getElementById(kind+'MoneyDesc').value.trim(),value=Number(document.getElementById(kind+'Money').value||0),date=document.getElementById(kind+'MoneyDate').value,status=kind==='private'?privateMoneyStatus.value:'Previsto/recebido';if(!desc||!value)return;data.money.push({id:id(),kind,desc,value,date,status});document.getElementById(kind+'MoneyDesc').value='';document.getElementById(kind+'Money').value='';save()}
+function saveDump(){data.dump=brainDump.value;save();dumpSaved.textContent='Anotações salvas neste dispositivo.'}
+function render(){
+ taskCount.textContent=data.tasks.filter(t=>!t.done).length;msgCount.textContent=data.messages.filter(t=>!t.done).length;reportCount.textContent=data.reports.filter(t=>!t.done).length;
+ topTasks.innerHTML=data.tasks.filter(t=>!t.done&&t.priority==='Alta').slice(0,3).map(t=>`<div class="item">${esc(t.name)} <span class="pill high">${esc(t.area)}</span></div>`).join('')||'Nenhuma prioridade alta cadastrada. Você pode respirar.';
+ daybar.innerHTML=days.map(d=>`<button class="day ${selectedDay===d?'selected':''}" onclick="selectedDay='${d}';render()">${d.slice(0,3)}<br><b>${data.tasks.filter(t=>t.day===d&&!t.done).length}</b></button>`).join('');
+ dayTitle.textContent=selectedDay;dayTasks.innerHTML=data.tasks.filter(t=>t.day===selectedDay).map(taskHTML).join('')||'<div class="empty">Sem tarefas cadastradas para este dia.</div>';
+ inbox.innerHTML=data.tasks.filter(t=>t.day==='Caixa de entrada').map(taskHTML).join('')||'<div class="empty">Sua caixa de entrada está vazia.</div>';
+ convTasks.innerHTML=data.tasks.filter(t=>t.area==='Clínica de convênio'&&!t.done).map(taskHTML).join('')||'<div class="empty">Nenhuma tarefa pendente do convênio.</div>';
+ privateTasks.innerHTML=data.tasks.filter(t=>t.area==='Clínica particular'&&!t.done).map(taskHTML).join('')||'<div class="empty">Nenhuma tarefa pendente da clínica particular.</div>';
+ convEvol.innerHTML=data.tasks.filter(t=>t.area==='Clínica de convênio'&&/evolução|prontuário/i.test(t.type+' '+t.name)&&!t.done).map(t=>`<div class="item">${esc(t.name)}</div>`).join('')||'<span class="muted">Sem pendências cadastradas.</span>';
+ convReports.innerHTML=data.tasks.filter(t=>t.area==='Clínica de convênio'&&/relatório/i.test(t.type+' '+t.name)&&!t.done).map(t=>`<div class="item">${esc(t.name)}</div>`).join('')||'<span class="muted">Sem relatórios na fila.</span>';
+ privateOther.innerHTML=data.tasks.filter(t=>t.area==='Clínica particular'&&['Captação','Planejamento'].some(k=>(t.type+' '+t.name).includes(k))&&!t.done).map(t=>`<div class="item">${esc(t.name)}</div>`).join('')||'<span class="muted">Cadastre tarefas de captação e planejamento na agenda.</span>';
+ ideaList.innerHTML=data.ideas.map(i=>`<div class="item"><div class="row"><div><b>${esc(i.name)}</b><div class="muted">${esc(i.stage)}</div></div><select onchange="changeIdea('${i.id}',this.value)">${['Ideia','Roteiro','Gravar','Editar','Publicado'].map(s=>`<option ${i.stage===s?'selected':''}>${s}</option>`).join('')}</select><button class="delete" onclick="removeIdea('${i.id}')">×</button></div></div>`).join('')||'<div class="empty">Seu banco de ideias começa com uma anotação.</div>';
+ adminList.innerHTML=data.admin.map(a=>`<div class="task"><input type="checkbox" ${a.done?'checked':''} onchange="toggleAdmin('${a.id}')"><div class="task-title ${a.done?'done':''}"><b>${esc(a.name)}</b><div class="muted">${esc(a.category)} ${a.date?'· '+esc(a.date):''}</div></div><button class="delete" onclick="removeAdmin('${a.id}')">×</button></div>`).join('')||'<div class="empty">Nenhuma burocracia cadastrada.</div>';
+ personalList.innerHTML=data.personal.map(a=>`<div class="task"><input type="checkbox" ${a.done?'checked':''} onchange="togglePersonal('${a.id}')"><div class="task-title ${a.done?'done':''}">${esc(a.name)}</div><button class="delete" onclick="removePersonal('${a.id}')">×</button></div>`).join('')||'<div class="empty">Nenhum lembrete pessoal por enquanto.</div>';
+ brainDump.value=data.dump||'';
+ let c=data.money.filter(m=>m.kind==='conv'),p=data.money.filter(m=>m.kind==='private');
+ convMoneyList.innerHTML=c.map(m=>`<div class="item"><b>${esc(m.desc)}</b><div class="muted">R$ ${m.value.toFixed(2)} · ${esc(m.date||'Sem data')}</div></div>`).join('')||'<div class="empty">Nenhum lançamento.</div>';
+ privateMoneyList.innerHTML=p.map(m=>`<div class="item"><div class="row"><div><b>${esc(m.desc)}</b><div class="muted">R$ ${m.value.toFixed(2)} · ${esc(m.status)} · ${esc(m.date||'Sem data')}</div></div><button class="delete" onclick="removeMoney('${m.id}')">×</button></div></div>`).join('')||'<div class="empty">Nenhum lançamento.</div>';
+ let sum=(arr)=>arr.reduce((s,m)=>s+m.value,0);
+ financeSummary.innerHTML=`<div class="stat"><b>R$ ${sum(c).toFixed(0)}</b><span>Convênio</span></div><div class="stat"><b>R$ ${sum(p.filter(m=>m.status==='Recebido')).toFixed(0)}</b><span>Particular recebido</span></div><div class="stat"><b>R$ ${sum(p.filter(m=>m.status==='Pendente')).toFixed(0)}</b><span>Particular pendente</span></div>`;
+}
+function changeIdea(i,v){let x=data.ideas.find(a=>String(a.id)===i);if(x)x.stage=v;save()}
+function removeIdea(i){data.ideas=data.ideas.filter(a=>String(a.id)!==i);save()}
+function toggleAdmin(i){let x=data.admin.find(a=>String(a.id)===i);if(x)x.done=!x.done;save()}
+function removeAdmin(i){data.admin=data.admin.filter(a=>String(a.id)!==i);save()}
+function togglePersonal(i){let x=data.personal.find(a=>String(a.id)===i);if(x)x.done=!x.done;save()}
+function removePersonal(i){data.personal=data.personal.filter(a=>String(a.id)!==i);save()}
+function removeMoney(i){data.money=data.money.filter(a=>String(a.id)!==i);save()}
+render();
+if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
